@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Validate Terraform Files
       run: |
@@ -36,5 +38,9 @@ jobs:
         
     - name: Check File Changes
       run: |
-        echo "📊 Changed files in this commit:"
-        git diff --name-only HEAD~1 HEAD
+        echo "📊 Checking for changed files..."
+        if git log --oneline -2 &>/dev/null; then
+          git diff --name-only HEAD~1 HEAD 2>/dev/null || echo "No changes detected"
+        else
+          echo "Initial commit or single commit"
+        fi
