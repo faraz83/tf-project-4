@@ -1,4 +1,4 @@
-name: Terraform Apply (Main)
+name: Terraform Plan on Push
 on:
   push:
     branches: [ main ]
@@ -7,7 +7,7 @@ on:
       - 'website/**'
 
 jobs:
-  terraform-apply:
+  terraform-plan:
     runs-on: ubuntu-latest
     
     steps:
@@ -22,5 +22,5 @@ jobs:
     - name: Terraform Init
       run: terraform init
 
-    - name: Terraform Apply
-      run: terraform apply -auto-approve
+    - name: Terraform Plan
+      run: terraform plan
